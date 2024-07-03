@@ -5,29 +5,19 @@ import data from './data.json';
 export const App = () => {
 	const [steps, setSteps] = useState(data);
 	const [activeIndex, setActiveIndex] = useState(0);
-	const [isStepFirst, setIsStepFirst] = useState(true);
-	const [isStepLast, setIsStepLast] = useState(false);
 
-	const onClickStepBack = () => {
-		setActiveIndex((updateActiveIndex) => --updateActiveIndex);
-		setIsStepFirst(!(activeIndex - 1));
-		setIsStepLast(false);
-	};
-	const onClickStepNext = () => {
-		setActiveIndex((updateActiveIndex) => ++updateActiveIndex);
-		setIsStepFirst(false);
-		setIsStepLast(activeIndex + 1 === data.length - 1);
-	};
-	const onClickStepsReset = () => {
-		setActiveIndex(0);
-		setIsStepFirst(true);
-		setIsStepLast(false);
-	};
+	const isStepFirst = activeIndex === 0;
+	const isStepLast = activeIndex === steps.length - 1;
+
+	const onClickStepBack = () => setActiveIndex(activeIndex - 1);
+
+	const onClickStepNext = () => setActiveIndex(activeIndex + 1);
+
+	const onClickStepsReset = () => setActiveIndex(0);
+
 	const onClickSwitchStep = ({ target }) => {
-		const currentIndex = Number(target.dataset.index);
-		setActiveIndex(currentIndex);
-		setIsStepFirst(!currentIndex);
-		setIsStepLast(currentIndex === data.length - 1);
+		const stepSelected = Number(target.dataset.index);
+		setActiveIndex(stepSelected);
 	};
 
 	return (
